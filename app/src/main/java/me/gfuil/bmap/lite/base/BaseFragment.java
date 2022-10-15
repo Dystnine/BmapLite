@@ -19,7 +19,7 @@
 package me.gfuil.bmap.lite.base;
 
 import android.app.Fragment;
-import android.support.v7.app.AlertDialog;
+import androidx.appcompat.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;

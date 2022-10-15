@@ -19,7 +19,7 @@
 
 package me.gfuil.bmap.lite.utils;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import java.security.MessageDigest;
 import java.util.HashMap;

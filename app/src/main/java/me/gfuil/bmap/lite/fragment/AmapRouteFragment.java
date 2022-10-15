@@ -22,17 +22,17 @@ import android.content.DialogInterface;
 import android.graphics.Color;
 import android.location.Location;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.design.widget.AppBarLayout;
-import android.support.design.widget.BottomSheetBehavior;
-import android.support.design.widget.CoordinatorLayout;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.widget.CardView;
-import android.support.v7.widget.DividerItemDecoration;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import com.google.android.material.appbar.AppBarLayout;
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
+import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -187,8 +187,11 @@ public class AmapRouteFragment extends BaseFragment implements View.OnClickListe
         configMap();
 
         mAmap.clear();
-        routeLine(mType);
-
+        try {
+            routeLine(mType); }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
         super.onResume();
     }
 
@@ -300,10 +303,15 @@ public class AmapRouteFragment extends BaseFragment implements View.OnClickListe
             mPoiStart = BApp.MY_LOCATION;
         }
 
-        routeLine(mType);
+        try {
+            routeLine(mType); }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
-    private void routeLine(TypeNavigation type) {
+    private void routeLine(TypeNavigation type) throws AMapException {
         if (null == mPoiStart || null == mPoiEnd) {
             return;
         }

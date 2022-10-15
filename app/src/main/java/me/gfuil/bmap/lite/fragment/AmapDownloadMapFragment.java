@@ -22,7 +22,7 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -72,7 +72,11 @@ public class AmapDownloadMapFragment extends BaseFragment implements AdapterView
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         listOffline = new ListView(getActivity());
         initView(listOffline);
-        getData();
+        try {
+            getData(); }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
         return listOffline;
     }
 
@@ -90,7 +94,7 @@ public class AmapDownloadMapFragment extends BaseFragment implements AdapterView
         listOffline.setOnItemClickListener(this);
     }
 
-    private void getData() {
+    private void getData() throws Exception{
         amapManager = new OfflineMapManager(getActivity(), this);
 
         TimerTask task = new TimerTask() {

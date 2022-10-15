@@ -19,7 +19,7 @@
 package me.gfuil.bmap.lite.fragment;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -78,7 +78,11 @@ public class AmapBusFragment extends BaseFragment implements AdapterView.OnItemC
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_bus, container, false);
         initView(view);
-        getData();
+        try {
+            getData(); }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
         return view;
     }
 
@@ -90,7 +94,7 @@ public class AmapBusFragment extends BaseFragment implements AdapterView.OnItemC
         mListBusRoute.setOnItemClickListener(this);
     }
 
-    private void getData() {
+    private void getData() throws AMapException{
         mRouteSearch = new RouteSearch(getActivity());
         mRouteSearch.setRouteSearchListener(this);
 

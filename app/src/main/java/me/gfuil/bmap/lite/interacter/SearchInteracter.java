@@ -20,6 +20,7 @@ package me.gfuil.bmap.lite.interacter;
 
 import android.content.Context;
 
+import com.amap.api.services.core.AMapException;
 import com.amap.api.services.core.LatLonPoint;
 import com.amap.api.services.core.PoiItem;
 import com.amap.api.services.core.SuggestionCity;
@@ -43,6 +44,7 @@ import com.baidu.mapapi.search.poi.OnGetPoiSearchResultListener;
 import com.baidu.mapapi.search.poi.PoiCitySearchOption;
 import com.baidu.mapapi.search.poi.PoiDetailResult;
 import com.baidu.mapapi.search.poi.PoiDetailSearchOption;
+import com.baidu.mapapi.search.poi.PoiDetailSearchResult;
 import com.baidu.mapapi.search.poi.PoiIndoorResult;
 import com.baidu.mapapi.search.poi.PoiNearbySearchOption;
 import com.baidu.mapapi.search.poi.PoiResult;
@@ -122,7 +124,7 @@ public class SearchInteracter {
     }
 
 
-    private void searchPoiNearbyByAmap(MyPoiModel nearby, String keyword, int page, final OnSearchResultListener listener) {
+    private void searchPoiNearbyByAmap(MyPoiModel nearby, String keyword, int page, final OnSearchResultListener listener) throws AMapException {
         PoiSearch.Query query = new PoiSearch.Query(keyword, "", nearby.getCity());
         query.setPageSize(20);
         query.setPageNum(page);
@@ -214,6 +216,11 @@ public class SearchInteracter {
             }
 
             @Override
+            public void onGetPoiDetailResult(PoiDetailSearchResult poiDetailSearchResult) {
+
+            }
+
+            @Override
             public void onGetPoiIndoorResult(PoiIndoorResult poiIndoorResult) {
 
             }
@@ -222,7 +229,7 @@ public class SearchInteracter {
         mPoiSearchBaidu.searchNearby(new PoiNearbySearchOption().location(new LatLng(nearby.getLatitude(), nearby.getLongitude())).keyword(keyword).radius(20000).sortType(PoiSortType.distance_from_near_to_far).pageNum(page).pageCapacity(20));
     }
 
-    private void searchPoiInCityByAmap(String keyword, String city, int page, final OnSearchResultListener listener) {
+    private void searchPoiInCityByAmap(String keyword, String city, int page, final OnSearchResultListener listener) throws AMapException {
         PoiSearch.Query query = new PoiSearch.Query(keyword, null, city);
         query.setPageSize(20);
         query.setPageNum(page);
@@ -321,6 +328,11 @@ public class SearchInteracter {
             }
 
             @Override
+            public void onGetPoiDetailResult(PoiDetailSearchResult poiDetailSearchResult) {
+
+            }
+
+            @Override
             public void onGetPoiIndoorResult(PoiIndoorResult poiIndoorResult) {
 
             }
@@ -343,7 +355,7 @@ public class SearchInteracter {
         }
     }
 
-    private void searchLatLngByAmap(final double lat, final double lng, final int type, final OnSearchResultListener listener) {
+    private void searchLatLngByAmap(final double lat, final double lng, final int type, final OnSearchResultListener listener) throws AMapException {
         com.amap.api.maps.model.LatLng latLng;
         com.amap.api.maps.CoordinateConverter converter = new com.amap.api.maps.CoordinateConverter(mContext);
         if (1 == type) {
@@ -502,7 +514,7 @@ public class SearchInteracter {
         }
     }
 
-    private void getPoiDetailsByAmap(String uid, OnBaseListener listener) {
+    private void getPoiDetailsByAmap(String uid, OnBaseListener listener) throws AMapException {
         PoiSearch poiSearch = new PoiSearch(mContext, null);
         poiSearch.setOnPoiSearchListener(new PoiSearch.OnPoiSearchListener() {
             @Override
@@ -526,6 +538,11 @@ public class SearchInteracter {
 
             @Override
             public void onGetPoiDetailResult(PoiDetailResult poiDetailResult) {
+            }
+
+            @Override
+            public void onGetPoiDetailResult(PoiDetailSearchResult poiDetailSearchResult) {
+
             }
 
             @Override

@@ -21,12 +21,12 @@ package me.gfuil.bmap.lite.activity;
 import android.app.Fragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.design.widget.Snackbar;
-import android.support.design.widget.TabLayout;
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.widget.Toolbar;
+import androidx.annotation.Nullable;
+import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.tabs.TabLayout;
+import androidx.viewpager.widget.ViewPager;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -117,7 +117,12 @@ public class OfflineMapActivity extends BaseActivity {
             finish();
             return true;
         } else if (R.id.action_update == id) {
-            checkUpdate();
+            try {
+                checkUpdate();
+            }
+            catch (Exception e) {
+                e.printStackTrace();
+            }
         } else if (R.id.action_setting == id) {
             try {
                 chooseDir();
@@ -130,7 +135,7 @@ public class OfflineMapActivity extends BaseActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void checkUpdate() {
+    private void checkUpdate() throws Exception {
         int count = 0;
         final MKOfflineMap mOffline = new MKOfflineMap();
         mOffline.init(new MKOfflineMapListener() {

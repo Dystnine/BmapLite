@@ -22,18 +22,18 @@ import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.Point;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.design.widget.AppBarLayout;
-import android.support.design.widget.BottomSheetBehavior;
-import android.support.design.widget.CoordinatorLayout;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.widget.CardView;
-import android.support.v7.widget.DividerItemDecoration;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import com.google.android.material.appbar.AppBarLayout;
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import androidx.appcompat.app.AlertDialog;
+import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.appcompat.widget.Toolbar;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -444,7 +444,11 @@ public class RouteBaiduBusActivity extends BaseActivity implements View.OnClickL
 
     public void initLocationSDK() {
 // 定位初始化
-        mLocClient = new LocationClient(this);
+        try {
+            mLocClient = new LocationClient(this);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         mLocClient.registerLocationListener(this);
         LocationClientOption option = new LocationClientOption();
         option.setLocationMode(LocationClientOption.LocationMode.Hight_Accuracy);
@@ -613,8 +617,7 @@ public class RouteBaiduBusActivity extends BaseActivity implements View.OnClickL
     }
 
     @Override
-    public boolean onMapPoiClick(MapPoi mapPoi) {
-        return false;
+    public void onMapPoiClick(MapPoi mapPoi) {
     }
 
     @Override
